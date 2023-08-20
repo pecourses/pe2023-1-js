@@ -170,20 +170,53 @@ const user = {
 // }
 
 // Перегляд об'єкту в консолі
-console.dir(user);
+// console.dir(user);
 
 // Функція - об'єкт
-console.dir(function f(q, w) {});
+// console.dir(function f(q, w) {});
 
 // Вкладені об'єкти
 
-const human = {
-  name: 'Ivo',
-  physParams: {
-    height: 1.8,
-    weight: 75,
-  },
-};
+// const human = {
+//   name: 'Ivo',
+//   physParams: {
+//     height: 1.8,
+//     weight: 75,
+//   },
+// };
 
-console.log('human :>> ', human);
-console.log(human.physParams.height);
+// console.log('human :>> ', human);
+// console.log(human.physParams.height);
+
+// Функція-конструктор
+
+// Записується з великої літери і викликається з new
+function User(firstName, lastName, age, password) {
+  // const this = {}; (неявно)
+  this.name = firstName;
+  this.surname = lastName;
+  this.age = age;
+  this.passw = password;
+  this.makeOlder = function () {
+    this.age++;
+  };
+  // return this; (неявно)
+}
+
+const user1 = new User('Test1', 'Testovych1', 20, 'qwerty');
+console.log('user1 :>> ', user1);
+
+const user2 = new User('Test2', 'Testovych2', 30, '123456');
+console.log('user2 :>> ', user2);
+
+user1.makeOlder();
+console.log('user1 :>> ', user1);
+console.log('user2 :>> ', user2);
+
+// Перевірка типу об'єкта
+
+if (user1 instanceof User) {
+  console.log('user1 is User');
+} else {
+  console.log('user1 is not User');
+}
