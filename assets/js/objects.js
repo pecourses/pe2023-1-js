@@ -197,11 +197,32 @@ function User(firstName, lastName, age, password) {
   this.surname = lastName;
   this.age = age;
   this.passw = password;
-  this.makeOlder = function () {
-    this.age++;
-  };
+  // Перенести в прототип
+  // this.makeOlder = function () {
+  //   this.age++;
+  // };
   // return this; (неявно)
 }
+
+// статичні властивості і методи
+User.AVG_AGE = 85;
+
+// методи інстанса
+
+// задати об'єкт
+const userProto = {}; // new User();
+// прописати в ньому метод
+userProto.changePassword = function (newPassw) {
+  this.password = newPassw;
+};
+userProto.makeOlder = function () {
+  this.age++;
+};
+// призначити створений об'єкт в властивість prototype
+// у функції-конструктора
+User.prototype = userProto;
+
+// user1 - інстанс / екземпляр типу User
 
 const user1 = new User('Test1', 'Testovych1', 20, 'qwerty');
 console.log('user1 :>> ', user1);
