@@ -8,12 +8,12 @@
 // Ex. a - arguments[0], b - arguments[1]
 
 // arguments - колекція для збереження аргументів ф-ї
-function f(a, b) {
-  console.log(arguments);
-  console.log('a :>> ', a);
-}
+// function f(a, b) {
+//   console.log(arguments);
+//   console.log('a :>> ', a);
+// }
 
-f(1, 2, 3);
+// f(1, 2, 3);
 
 //Написати функцію для підрахунку суми необмеженої кількості елементів
 
@@ -67,3 +67,54 @@ function calculate(operation) {
 
 const result = calculate('*', 1, 2, 3, 4);
 console.log(result);
+
+// rest-parameters
+
+function f(a, b, ...args) {
+  console.log(args);
+}
+
+const res = f(1, 2, 3, 4, 5);
+
+// порахувати суму елементів
+
+function sum(...summands) {
+  // for, for..of,
+  function howToReduce(accum, item) {
+    return accum + item;
+  }
+  const sum = summands.reduce(howToReduce);
+  return sum;
+}
+
+const res1 = sum(1, 2, 3, 4, 5, 6);
+console.log(res1);
+
+// Переробити під rest параметри
+function calculate(operation, ...operands) {
+  let accum;
+  if (operation === '+') {
+    accum = 0;
+    for (let i = 0; i < operands.length; i++) {
+      accum += operands[i];
+    }
+  } else if (operation === '*') {
+    accum = 1;
+    for (let i = 0; i < operands.length; i++) {
+      accum *= operands[i];
+    }
+  } else {
+    return undefined;
+  }
+
+  return accum;
+}
+// arguments              0   1  2  3  4
+const result = calculate('+', 1, 2, 3, 4);
+// ...operands                0  1  2  3
+console.log(result);
+
+//           Порівняння arguments і rest-parameters
+//           | властивість функції | треба оголошувати |    тип    | всі параметри?
+// arguments |          +          |        -          | Arguments |      +
+// rest      |          -          |        +          |   Array   |      -
