@@ -75,3 +75,22 @@ try {
 } catch (err) {
   console.log('err :>> ', err);
 }
+
+// Task: реалізувати клас для телефонів (марка, модель, колір, ціна, рік випуску)
+// реалізувати метод для розрахунку віку телефону
+// створити екземпляр класу, викликати для нього метод
+class Phone {
+  constructor(brand, model, color, price, year) {
+    this.brand = brand;
+    this.model = model;
+    this.color = color;
+    this.price = price;
+    this.year = year;
+  }
+  calcPhoneAge() {
+    return new Date().getFullYear() - this.year;
+  }
+}
+
+const iphone = new Phone('Apple', 'iphone', 'white', '100$', 2022);
+console.log(iphone.calcPhoneAge());
