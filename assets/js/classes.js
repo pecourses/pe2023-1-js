@@ -143,6 +143,9 @@ class Moderator extends User {
     super(name, surname, age, isMale, email); // виклик конструктора базового класу: new User()
     this._permissions = permissions;
   }
+  getFullName() {
+    return `Mr. ${this._firstName} ${this._lastName}`;
+  }
   sendMessage(user, message) {
     console.log(
       `Moderator ${this._firstName} send message "${message}" to user ${user._firstName}`
@@ -158,3 +161,89 @@ const moderator = new Moderator('Mod', 'Modovych', 30, false, 'mod@mail.com', {
 
 console.log(moderator.getFullName());
 moderator.sendMessage(user, 'Hello');
+
+// Task: Реалізувати клас Admin, який є модератором, і на додачу має
+// властивість category (1,2)
+// реалізує логіку (забанити або зняти бан з конкретного користувача):
+// - bann (user) => встановити для нього бан тру
+// - unbann
+
+// Створити об'єкт класу Admin, протустувати роботу методі bann, unbann
+
+// Спадкування:
+// - extends БазовийКлас
+// - super в конструкторі
+// - всі методи батьківського класи успадковуються і можуть викликатися як власні
+
+class Admin extends Moderator {
+  constructor(name, surname, age, isMale, email, permissions, category) {
+    super(name, surname, age, isMale, email, permissions);
+    this._category = category;
+  }
+  getFullName() {
+    return `${this._firstName} ${this._lastName}`;
+  }
+  bann(user) {
+    user._isBanned = true;
+  }
+  unbann(user) {
+    user._isBanned = false;
+  }
+}
+
+const admin = new Admin(
+  'Admin',
+  'Adminovych',
+  28,
+  true,
+  'admin@gmail.com',
+  {
+    bann: true,
+    readPrivate: true,
+    sendMessage: true,
+  },
+  1
+);
+
+console.log(admin.getFullName());
+// console.log('user :>> ', user._isBanned);
+admin.bann(user);
+// console.log('user :>> ', user._isBanned);
+admin.unbann(user);
+// console.log('user :>> ', user._isBanned);
+// Ex.: ПЕРЕВИЗНАЧЕННЯ
+// squirrel (ість, що дадуть, бігає, ім'я),
+// flyingSquirrel (їсть тілько горіхи, літає, довжина стрибка)
+
+class Squirrel {
+  constructor(name) {
+    this._name = name;
+  }
+  eat(food) {
+    console.log(`Squirrel ${this._name} is eating ${food}.`);
+  }
+  run() {
+    console.log(`Squirrel ${this._name} is running.`);
+  }
+}
+
+class FlyingSquirrel extends Squirrel {
+  constructor(name, length) {
+    super(name);
+    this._length = length;
+  }
+  eat() {
+    console.log(`Squirrel ${this._name} is eating nuts.`);
+  }
+  fly() {
+    console.log(`Squirrel ${this._name} is flying on ${this._length}m.`);
+  }
+}
+
+const sq = new Squirrel('Natasha');
+sq.eat('carrot');
+sq.run();
+
+const flyingSq = new FlyingSquirrel('007', 3);
+flyingSq.eat();
+flyingSq.fly();
